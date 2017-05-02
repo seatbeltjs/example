@@ -1,3 +1,3 @@
-Seatbelt = require('../index.js').Seatbelt;
+Seatbelt = require('../core').Seatbelt;
 
 new Seatbelt().strap();

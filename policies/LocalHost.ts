@@ -1,7 +1,7 @@
-import { DPolicy, IPolicy } from '../../seatbelt';
-
-@DPolicy()
-export class LocalHost implements IPolicy {
+// import { DPolicy, IPolicy } from '../../core/src';
+//
+// @DPolicy()
+export class LocalHost {
   public controller (route: any) {
     console.log('policy working');
     return route.next();

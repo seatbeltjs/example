@@ -1,0 +1,27 @@
+{
+  "name": "seatbelt-example-app",
+  "version": "0.0.1",
+  "description": "seatbelt example app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/joi": "^10.3.1",
+    "@types/node": "^7.0.15",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-local-resolve": "^1.0.7",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-typescript": "^0.8.1",
+    "tslint": "^4.5.1",
+    "tslint-eslint-rules": "^3.5.0",
+    "tslint-microsoft-contrib": "^4.0.1",
+    "typescript": "^2.2.1"
+  },
+  "author": "Thomas Meadows",
+  "license": "MIT",
+  "dependencies": {
+    "joi": "^10.4.1"
+  }
+}

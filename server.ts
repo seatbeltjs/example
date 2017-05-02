@@ -1,5 +1,5 @@
-import { DKoa, IServer } from '../src';
+import { DHapi } from '../server-hapi';
 
-@DKoa()
-export class Server implements IServer {
+@DHapi()
+export class Server {
 }
