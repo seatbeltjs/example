@@ -1,25 +1,25 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "outDir": "dist",
     "module": "commonjs",
     "declaration": true,
     "noImplicitAny": true,
+    "strictNullChecks": true,
     "removeComments": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "inlineSources": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true
+    "types": [
+      "node",
+      "joi"
+    ]
   },
   "moduleResolution": "node",
-  "filesGlob": [
-    "./*",
-    "./**/*",
-    "./**/**/*"
-  ],
-  "types": [
-    "node"
+  "include": [
+    "**/*.ts"
   ],
   "exclude": [
     "node_modules"

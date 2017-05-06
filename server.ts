@@ -1,5 +1,9 @@
-import { DHapi } from '../server-hapi';
+import { DRestify } from '@seatbelt/server-restify';
+import { IServer } from '@seatbelt/core';
 
-@DHapi()
-export class Server {
+@DRestify()
+export class Server implements IServer {
+  public test() {
+    console.log('hi');
+  }
 }

@@ -1,3 +1,3 @@
-Seatbelt = require('../core').Seatbelt;
+Seatbelt = require('@seatbelt/core').Seatbelt;
 
 new Seatbelt().strap();

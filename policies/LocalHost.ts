@@ -1,9 +1,9 @@
-// import { DPolicy, IPolicy } from '../../core/src';
-//
-// @DPolicy()
-export class LocalHost {
-  public controller (route: any) {
+import { DPolicy, IPolicy, IPolicyController } from '@seatbelt/core';
+
+@DPolicy()
+export class LocalHost implements IPolicy {
+  public controller (controller: IPolicyController) {
     console.log('policy working');
-    return route.next();
+    return controller.next();
   }
 }
