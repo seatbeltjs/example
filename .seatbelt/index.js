@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var _seatbelt_core = require('@seatbelt/core');
 var Joi = require('joi');
-var _seatbelt_serverRestify = require('@seatbelt/server-restify');
+var _seatbelt_serverHapi = require('@seatbelt/server-hapi');
 
 function __decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -30,13 +30,13 @@ var Request0 = Object.freeze({
 
 let HomeRoute = class HomeRoute {
     controller(controller) {
-        return controller.send({ status: 200, json: controller.params });
+        return controller.send({ status: 200, json: controller });
     }
 };
 __decorate([
-    _seatbelt_core.DValidateRequest(Joi.object().keys({
+    _seatbelt_core.DValidateRequest({
         email: Joi.string().email().required()
-    }))
+    })
 ], HomeRoute.prototype, "controller", null);
 HomeRoute = __decorate([
     _seatbelt_core.DRoute({
@@ -59,7 +59,7 @@ let Server = class Server {
     }
 };
 Server = __decorate([
-    _seatbelt_serverRestify.DRestify()
+    _seatbelt_serverHapi.DHapi()
 ], Server);
 
 
