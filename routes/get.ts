@@ -1,4 +1,5 @@
-import { DRoute, DValidateRequest, IRoute, IController } from '@seatbelt/core';
+import { DRoute, IRoute, IController} from '@seatbelt/core';
+import { DValidateRequest } from '@seatbelt/validators'
 import * as Joi from 'joi';
 
 @DRoute({

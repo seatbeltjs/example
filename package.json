@@ -23,6 +23,8 @@
   "author": "Thomas Meadows",
   "license": "MIT",
   "dependencies": {
+    "@seatbelt/core": "^0.0.1",
+    "@seatbelt/validators": "^0.0.1",
     "joi": "^10.4.1"
   }
 }

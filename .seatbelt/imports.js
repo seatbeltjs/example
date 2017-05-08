@@ -2,7 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var _seatbelt_core = require('@seatbelt/core');
 var Joi = require('joi');
 var _seatbelt_serverHapi = require('@seatbelt/server-hapi');
 
@@ -13,6 +12,45 @@ function __decorate(decorators, target, key, desc) {
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 
+function DRoute(config) {
+    return function (OriginalClassConstructor) {
+        return function () {
+            const origin = new OriginalClassConstructor();
+            if (typeof config.type === 'string') {
+                config.type = [config.type];
+            }
+            if (typeof config.path === 'string') {
+                config.path = [config.path];
+            }
+            if (!config.policies) {
+                config.policies = [];
+            }
+            if (typeof config.policies === 'string') {
+                config.policies = [config.policies];
+            }
+            origin.__seatbelt_config__ = config;
+            origin.__seatbelt__ = 'route';
+            return origin;
+        };
+    };
+}
+
+function DPolicy(config) {
+    return (OriginalClassConstructor) => {
+        return function () {
+            const origin = OriginalClassConstructor.prototype;
+            if (config && config.name) {
+                origin.__name__ = config.name;
+            }
+            else {
+                origin.__name__ = OriginalClassConstructor.name;
+            }
+            origin.__seatbelt__ = 'policy';
+            return OriginalClassConstructor.prototype;
+        };
+    };
+}
+
 let LocalHost = class LocalHost {
     controller(controller) {
         console.log('policy working');
@@ -20,7 +58,7 @@ let LocalHost = class LocalHost {
     }
 };
 LocalHost = __decorate([
-    _seatbelt_core.DPolicy()
+    DPolicy()
 ], LocalHost);
 
 
@@ -28,18 +66,34 @@ var Request0 = Object.freeze({
 	get LocalHost () { return LocalHost; }
 });
 
+function DValidateRequest(requiredParams) {
+    return function (hostClass, functionName, functionAttributes) {
+        const originalMethod = functionAttributes.value;
+        functionAttributes.value = (controller, serverController) => {
+            Joi.validate(controller.params, Joi.object().keys(requiredParams), (err) => {
+                if (!err) {
+                    return originalMethod(controller, serverController);
+                }
+                else {
+                    controller.send({ status: 400, json: err });
+                }
+            });
+        };
+    };
+}
+
 let HomeRoute = class HomeRoute {
     controller(controller) {
         return controller.send({ status: 200, json: controller });
     }
 };
 __decorate([
-    _seatbelt_core.DValidateRequest({
+    DValidateRequest({
         email: Joi.string().email().required()
     })
 ], HomeRoute.prototype, "controller", null);
 HomeRoute = __decorate([
-    _seatbelt_core.DRoute({
+    DRoute({
         path: '/',
         type: ['GET', 'POST'],
         policies: [
@@ -67,6 +121,17 @@ var Request2 = Object.freeze({
 	get Server () { return Server; }
 });
 
+class Poke {
+    poke() {
+        console.log('poke');
+    }
+}
+
+
+var Request3 = Object.freeze({
+	Poke: Poke
+});
+
 const exportsObject = {};
 
 if (Request0 && typeof Request0 === 'object') {
@@ -89,6 +154,14 @@ if (Request2 && typeof Request2 === 'object') {
   Object.keys(Request2).forEach(variable => {
     if (Request2[variable] && Request2[variable].prototype) {
       exportsObject[variable + '__2'] = new Request2[variable]();
+    }
+  });
+}
+
+if (Request3 && typeof Request3 === 'object') {
+  Object.keys(Request3).forEach(variable => {
+    if (Request3[variable] && Request3[variable].prototype) {
+      exportsObject[variable + '__3'] = new Request3[variable]();
     }
   });
 }
