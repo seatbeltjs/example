@@ -11,18 +11,23 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "inlineSources": true,
-    "experimentalDecorators": true,
-    "types": [
-      "node",
-      "joi"
-    ]
+    "experimentalDecorators": true
   },
   "moduleResolution": "node",
   "include": [
-    "**/*.ts"
+    "**/*.ts",
+    "**/*.ts.d"
   ],
   "exclude": [
     "node_modules"
+  ],
+  "typesRoots": [
+    ".seatbelt",
+    "node_modules/@types"
+  ],
+  "types": [
+    ".seatbelt",
+    "node_modules/@types"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

@@ -1,7 +1,6 @@
 import * as Request0 from '/Users/thomas/me/example/policies/LocalHost';
 import * as Request1 from '/Users/thomas/me/example/routes/get';
 import * as Request2 from '/Users/thomas/me/example/server';
-import * as Request3 from '/Users/thomas/me/example/services/poke';
 
 const exportsObject = {};
 
@@ -25,14 +24,6 @@ if (Request2 && typeof Request2 === 'object') {
   Object.keys(Request2).forEach(variable => {
     if (Request2[variable] && Request2[variable].prototype) {
       exportsObject[variable + '__2'] = new Request2[variable]();
-    }
-  });
-}
-
-if (Request3 && typeof Request3 === 'object') {
-  Object.keys(Request3).forEach(variable => {
-    if (Request3[variable] && Request3[variable].prototype) {
-      exportsObject[variable + '__3'] = new Request3[variable]();
     }
   });
 }

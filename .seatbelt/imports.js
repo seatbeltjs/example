@@ -70,7 +70,7 @@ function DValidateRequest(requiredParams) {
     return function (hostClass, functionName, functionAttributes) {
         const originalMethod = functionAttributes.value;
         functionAttributes.value = (controller, serverController) => {
-            Joi.validate(controller.params, Joi.object().keys(requiredParams), (err) => {
+            Joi.validate(controller.params, Joi.object().keys(requiredParams(Joi)), (err) => {
                 if (!err) {
                     return originalMethod(controller, serverController);
                 }
@@ -88,9 +88,9 @@ let HomeRoute = class HomeRoute {
     }
 };
 __decorate([
-    DValidateRequest({
-        email: Joi.string().email().required()
-    })
+    DValidateRequest((Joi$$1) => ({
+        email: Joi$$1.string().email().required()
+    }))
 ], HomeRoute.prototype, "controller", null);
 HomeRoute = __decorate([
     DRoute({
@@ -121,17 +121,6 @@ var Request2 = Object.freeze({
 	get Server () { return Server; }
 });
 
-class Poke {
-    poke() {
-        console.log('poke');
-    }
-}
-
-
-var Request3 = Object.freeze({
-	Poke: Poke
-});
-
 const exportsObject = {};
 
 if (Request0 && typeof Request0 === 'object') {
@@ -154,14 +143,6 @@ if (Request2 && typeof Request2 === 'object') {
   Object.keys(Request2).forEach(variable => {
     if (Request2[variable] && Request2[variable].prototype) {
       exportsObject[variable + '__2'] = new Request2[variable]();
-    }
-  });
-}
-
-if (Request3 && typeof Request3 === 'object') {
-  Object.keys(Request3).forEach(variable => {
-    if (Request3[variable] && Request3[variable].prototype) {
-      exportsObject[variable + '__3'] = new Request3[variable]();
     }
   });
 }

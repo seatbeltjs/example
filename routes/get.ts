@@ -1,6 +1,5 @@
 import { DRoute, IRoute, IController} from '@seatbelt/core';
-import { DValidateRequest } from '@seatbelt/validators'
-import * as Joi from 'joi';
+import { DValidateRequest } from '@seatbelt/validators';
 
 @DRoute({
   path: '/',
@@ -10,9 +9,9 @@ import * as Joi from 'joi';
   ]
 })
 export class HomeRoute implements IRoute {
-  @DValidateRequest({
+  @DValidateRequest((Joi) => ({
     email: Joi.string().email().required()
-  })
+  }))
   public controller (controller: IController) {
     return controller.send({ status: 200, json: controller });
   }
