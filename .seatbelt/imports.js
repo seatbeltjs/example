@@ -14,40 +14,60 @@ function __decorate(decorators, target, key, desc) {
 
 function DRoute(config) {
     return function (OriginalClassConstructor) {
-        return function () {
-            const origin = new OriginalClassConstructor();
-            if (typeof config.type === 'string') {
-                config.type = [config.type];
+        return class extends OriginalClassConstructor {
+            constructor() {
+                super();
+                if (typeof config.type === 'string') {
+                    config.type = [config.type];
+                }
+                if (typeof config.path === 'string') {
+                    config.path = [config.path];
+                }
+                if (!config.policies) {
+                    config.policies = [];
+                }
+                if (typeof config.policies === 'string') {
+                    config.policies = [config.policies];
+                }
+                this.__seatbelt_config__ = config;
+                this.__seatbelt__ = 'route';
             }
-            if (typeof config.path === 'string') {
-                config.path = [config.path];
-            }
-            if (!config.policies) {
-                config.policies = [];
-            }
-            if (typeof config.policies === 'string') {
-                config.policies = [config.policies];
-            }
-            origin.__seatbelt_config__ = config;
-            origin.__seatbelt__ = 'route';
-            return origin;
         };
     };
 }
 
-function DPolicy(config) {
-    return (OriginalClassConstructor) => {
-        return function () {
-            const origin = OriginalClassConstructor.prototype;
-            if (config && config.name) {
-                origin.__name__ = config.name;
+const policyRegister = {};
+function DPolicy(policyNames) {
+    return (OriginalClassConstructor, wrappedName, valueObject) => {
+        if (typeof OriginalClassConstructor === 'function') {
+            return class extends OriginalClassConstructor {
+                constructor() {
+                    super();
+                    this.__name__ = OriginalClassConstructor.name;
+                    this.__seatbelt__ = 'policy';
+                    policyRegister[OriginalClassConstructor.name.toLowerCase()] = this.controller;
+                }
+                ;
+            };
+        }
+        else if (valueObject && typeof valueObject.value === 'function') {
+            if (typeof policyNames === 'string') {
+                policyNames = [policyNames];
             }
-            else {
-                origin.__name__ = OriginalClassConstructor.name;
+            if (Array.isArray(policyNames)) {
+                policyNames.forEach(policyName => {
+                    policyName = policyName.toLowerCase();
+                    const originalFunction = valueObject.value;
+                    valueObject.value = function (controls, ...params) {
+                        const next = () => {
+                            return originalFunction(controls, ...params);
+                        };
+                        const policyControls = Object.assign({}, controls, { next });
+                        return policyRegister[policyName](policyControls, ...params);
+                    };
+                });
             }
-            origin.__seatbelt__ = 'policy';
-            return OriginalClassConstructor.prototype;
-        };
+        }
     };
 }
 
@@ -88,6 +108,7 @@ let HomeRoute = class HomeRoute {
     }
 };
 __decorate([
+    DPolicy('Localhost'),
     DValidateRequest((Joi$$1) => ({
         email: Joi$$1.string().email().required()
     }))
@@ -95,10 +116,7 @@ __decorate([
 HomeRoute = __decorate([
     DRoute({
         path: '/',
-        type: ['GET', 'POST'],
-        policies: [
-            'LocalHost'
-        ]
+        type: ['GET', 'POST']
     })
 ], HomeRoute);
 
@@ -108,9 +126,6 @@ var Request1 = Object.freeze({
 });
 
 let Server = class Server {
-    test() {
-        console.log('hi');
-    }
 };
 Server = __decorate([
     _seatbelt_serverHapi.DHapi()

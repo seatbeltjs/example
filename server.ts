@@ -5,8 +5,4 @@ import { DHapi } from '@seatbelt/server-hapi';
 import { IServer } from '@seatbelt/core';
 
 @DHapi()
-export class Server implements IServer {
-  public test() {
-    console.log('hi');
-  }
-}
+export class Server implements IServer {}

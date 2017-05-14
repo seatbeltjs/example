@@ -1,14 +1,12 @@
-import { DRoute, IRoute, IController} from '@seatbelt/core';
+import { DRoute, DPolicy, IRoute, IController} from '@seatbelt/core';
 import { DValidateRequest } from '@seatbelt/validators';
 
 @DRoute({
   path: '/',
-  type: ['GET', 'POST'],
-  policies: [
-    'LocalHost'
-  ]
+  type: ['GET', 'POST']
 })
 export class HomeRoute implements IRoute {
+  @DPolicy('Localhost')
   @DValidateRequest((Joi) => ({
     email: Joi.string().email().required()
   }))
