@@ -5,20 +5,19 @@
     "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "strict": false,
     "removeComments": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "moduleResolution": "node",
-    "sourceMap": false,
-    "inlineSources": false,
+    "sourceMap": true,
+    "inlineSources": true,
     "noImplicitUseStrict": true,
     "experimentalDecorators": true
   },
   "moduleResolution": "node",
   "include": [
-    "**/*.ts",
-    "**/*.ts.d"
+    "*.ts",
+    "*.ts.d"
   ],
   "exclude": [
     "node_modules"

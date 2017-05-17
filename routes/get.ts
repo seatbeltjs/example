@@ -1,4 +1,4 @@
-import { DRoute, DPolicy, IRoute, IController} from '@seatbelt/core';
+import { DService, DRoute, DPolicy, IRoute, IController} from '@seatbelt/core';
 import { DValidateRequest } from '@seatbelt/validators';
 
 @DRoute({
@@ -6,11 +6,13 @@ import { DValidateRequest } from '@seatbelt/validators';
   type: ['GET', 'POST']
 })
 export class HomeRoute implements IRoute {
+  @DService() public services: any;
   @DPolicy('Localhost')
   @DValidateRequest((Joi) => ({
     email: Joi.string().email().required()
   }))
   public controller (controller: IController) {
+    this.services.Poke.poke();
     return controller.send({ status: 200, json: controller });
   }
 }
