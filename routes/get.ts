@@ -7,6 +7,7 @@ import { DValidateRequest } from '@seatbelt/validators';
 })
 export class HomeRoute implements IRoute {
   @DService() public services: any;
+  public models: any;
   @DPolicy('Localhost')
   @DValidateRequest((Joi) => ({
     email: Joi.string().email().required()
