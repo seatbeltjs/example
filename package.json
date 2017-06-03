@@ -1,6 +1,6 @@
 {
   "name": "seatbelt-example-app",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.1",
   "description": "seatbelt example app",
   "main": "index.js",
   "scripts": {
@@ -24,8 +24,7 @@
   "author": "Thomas Meadows",
   "license": "MIT",
   "dependencies": {
-    "@seatbelt/core": "^0.0.1",
-    "@seatbelt/validators": "^0.0.1",
-    "joi": "^10.4.1"
+    "@seatbelt/core": "^0.0.1-alpha.2",
+    "@seatbelt/orm-waterline": "^0.0.1-alpha.2"
   }
 }

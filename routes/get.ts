@@ -1,5 +1,4 @@
-import { DService, DRoute, DPolicy, IRoute, IController} from '@seatbelt/core';
-import { DValidateRequest } from '@seatbelt/validators';
+import { DService, DRoute, DPolicy, DValidateRequest, IRoute, IController} from '@seatbelt/core';
 
 @DRoute({
   path: '/',

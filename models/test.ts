@@ -1,6 +1,6 @@
-import { DRegisterModel } from '@seatbelt/orm-waterline';
+import { DModel } from '@seatbelt/orm-waterline';
 
-@DRegisterModel({
+@DModel({
   connection: 'default',
   identity: 'test',
   attributes: {
