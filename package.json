@@ -24,7 +24,6 @@
   "author": "Thomas Meadows",
   "license": "MIT",
   "dependencies": {
-    "@seatbelt/core": "^0.0.1-alpha.2",
-    "@seatbelt/orm-waterline": "^0.0.1-alpha.2"
+    "@seatbelt/core": "^0.0.1-alpha.2"
   }
 }

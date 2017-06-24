@@ -4,15 +4,15 @@ import { DService, DRoute, DPolicy, DValidateRequest, IRoute, IController} from 
   path: '/',
   type: ['GET', 'POST']
 })
-export class HomeRoute implements IRoute {
+export class HomeRoute {
   @DService() public services: any;
-  public models: any;
+  // public models: any;
   @DPolicy('Localhost')
   @DValidateRequest((Joi) => ({
     email: Joi.string().email().required()
   }))
-  public controller (controller: IController) {
-    this.services.Poke.poke();
-    return controller.send({ status: 200, json: controller });
+  public controller (req: any, res: any) {
+    // this.services.Poke.poke();
+    return res.send(200, req.allParams);
   }
 }
