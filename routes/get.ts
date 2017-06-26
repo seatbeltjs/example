@@ -1,18 +1,19 @@
-import { DService, DRoute, DPolicy, DValidateRequest, IRoute, IController} from '@seatbelt/core';
+import { Log, Service, Route } from '@seatbelt/core';
 
-@DRoute({
+@Route.Register({
   path: '/',
-  type: ['GET', 'POST']
+  type: 'GET'
 })
-export class HomeRoute {
-  @DService() public services: any;
-  // public models: any;
-  @DPolicy('Localhost')
-  @DValidateRequest((Joi) => ({
-    email: Joi.string().email().required()
-  }))
+export class HomeRoute implements Route.BaseRoute {
+  private log: Log = new Log('[GET, POST] /');
+
+  @Service.Use('Poke') public pokeService: any;
+  @Service.UseAll() public services: any;
+
   public controller (req: any, res: any) {
-    // this.services.Poke.poke();
-    return res.send(200, req.allParams);
+    this.log.debug('base controller called');
+    this.pokeService.poke();
+
+    return res.send(200, {message: 'hi, this is the base route, try creating a user by sending a get or post request to /user with a firstname, lastname, and email in the query params or post body'});
   }
 }

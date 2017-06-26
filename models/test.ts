@@ -1,11 +1,11 @@
-import { DModel } from '@seatbelt/orm-waterline';
+import { Model } from '@seatbelt/orm-waterline';
 
-@DModel({
+export const TestModel = new Model.Register({
   connection: 'default',
   identity: 'test',
   attributes: {
     firstName: 'string',
-    lastName: 'string'
+    lastName: 'string',
+    email: 'email'
   }
-})
-export class Test {}
+});

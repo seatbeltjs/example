@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript';
+
 export default {
   format: 'cjs',
   useStrict: false,

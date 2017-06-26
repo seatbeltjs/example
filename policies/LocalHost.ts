@@ -1,9 +1,9 @@
-import { DPolicy, IPolicy, IPolicyController } from '@seatbelt/core';
+import { Policy } from '@seatbelt/core';
 
-@DPolicy()
-export class LocalHost implements IPolicy {
-  public controller (controller: IPolicyController) {
+@Policy.Register()
+export class LocalHost {
+  public controller (req: any, res: any) {
     console.log('policy working');
-    return controller.next();
+    return res.next();
   }
 }

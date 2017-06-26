@@ -1,8 +1,9 @@
-import { DService } from '@seatbelt/core';
+import { Service, Log } from '@seatbelt/core';
 
-@DService()
+@Service.Register()
 export class Poke {
+  public log: Log = new Log('PokeService');
   public poke() {
-    console.log('poke');
+    this.log.debug('you have been poked');
   }
 }
