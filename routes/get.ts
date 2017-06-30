@@ -1,4 +1,4 @@
-import { Log, Service, Route } from '@seatbelt/core';
+import { Log, Service, Route, Request, Response } from '@seatbelt/core';
 
 @Route.Register({
   path: '/',
@@ -10,10 +10,10 @@ export class HomeRoute implements Route.BaseRoute {
   @Service.Use('Poke') public pokeService: any;
   @Service.UseAll() public services: any;
 
-  public controller (req: any, res: any) {
+  public controller (req: Request.Base, res: Response.Base) {
     this.log.debug('base controller called');
     this.pokeService.poke();
 
-    return res.send(200, {message: 'hi, this is the base route, try creating a user by sending a get or post request to /user with a firstname, lastname, and email in the query params or post body'});
+    return res.ok({message: 'hi, this is the base route, try creating a user by sending a get or post request to /user with a firstname, lastname, and email in the query params or post body'});
   }
 }

@@ -2,7 +2,7 @@ import { Log, Route } from '@seatbelt/core';
 import { Model } from '@seatbelt/orm-waterline';
 
 @Route.Register({
-  path: 'users',
+  path: '/users',
   type: ['GET', 'POST', 'PUT']
 })
 export class UserGetAllRoute implements Route.BaseRoute {
