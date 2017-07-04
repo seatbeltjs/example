@@ -5,13 +5,12 @@ import { Model } from '@seatbelt/orm-waterline';
   path: '/users',
   type: ['GET', 'POST', 'PUT']
 })
-export class UserGetAllRoute implements Route.BaseRoute {
+export class UserGetAllRoute implements Route.BaseInterface {
   private log: Log = new Log('[GET, POST] /');
 
-  @Model.UseAll() public models: any;
   @Model.Use('test') public testModel: any;
 
-  public controller (req: any, res: any) {
+  public controller (req: Route.Request.BaseInterface, res: Route.Response.BaseInterface) {
     return this.testModel.find()
     .limit(1000)
     .then((modelCreated: any) => {

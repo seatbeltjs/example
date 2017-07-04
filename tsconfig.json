@@ -13,24 +13,12 @@
     "sourceMap": false,
     "inlineSources": false,
     "noImplicitUseStrict": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "moduleResolution": "node",
-  "include": [
-    "**/*.ts",
-    "**/*.ts.d"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "typesRoots": [
-    ".seatbelt",
-    "node_modules/@types"
-  ],
-  "types": [
-    ".seatbelt",
-    "node_modules/@types"
-  ],
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": {

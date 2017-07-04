@@ -5,10 +5,9 @@ import { Model } from '@seatbelt/orm-waterline';
   path: '/user',
   type: ['GET', 'POST']
 })
-export class UserCreateRoute implements Route.BaseRoute {
+export class UserCreateRoute implements Route.BaseInterface {
   private log: Log = new Log('[GET, POST] /');
 
-  @Model.UseAll() public models: any;
   @Model.Use('test') public testModel: any;
 
   @Policy.Use('Localhost')
@@ -17,7 +16,7 @@ export class UserCreateRoute implements Route.BaseRoute {
     firstname: Joi.string().required(),
     lastname: Joi.string().required()
   }))
-  public controller (req: any, res: any) {
+  public controller (req: Route.Request.BaseInterface, res: Route.Response.BaseInterface) {
     return this.testModel.create(req.allParams)
     .then((modelCreated: any) => {
       this.log.debug('model created');
